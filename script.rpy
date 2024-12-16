@@ -37,9 +37,14 @@ define ni = Character("Ibu-ibu")
 define nb = Character("Bapak-bapak")
 define ra = Character("Raksa")
 define ja = Character("Jarwo")
+define ha = Character("Hana")
+define ai = Character("Arief")
+define di = Character("Dion")
 
 
 # The game starts here.
+
+# Aksi teroris ngebom kafe
 label start:
     #Scene 1: Markas Teroris
     scene meja_diskusi_markas_teroris with fade
@@ -54,11 +59,11 @@ label start:
     hide rizal
     menu:
         "Ambil tas itu":
-            jump a_1
+            jump bm_a_1
         "Tolak tawaran Pak Rizal":
-            jump a_2
+            jump bm_a_2
         
-label a_1:
+label bm_a_1:
     play sound "ambil-tas-bm-s1.mp3"
     show mc netral at left
     ar "Apa… apa ini sudah pasti? Maksudku, tidak ada jalan lain"
@@ -86,9 +91,9 @@ label a_1:
     play sound "PINTU_TUTUP-BM-S1.mp3"
     hide rizal
     "(Rizal keluar dari ruangan tersebut, meninggalkan Arman merenung sendiri.)"
-    jump scene_2
+    jump bm_scene_2
 
-label a_2:
+label bm_a_2:
     show mc sedih at left
     ar "Rizal… aku nggak bisa. Ini… terlalu jauh. Aku setuju dengan perjuangan kita, tapi menghancurkan nyawa orang-orang nggak masuk akal buatku."
     show rizal marah at right
@@ -105,8 +110,9 @@ label a_2:
     ri "Sudahlah, memang salah ku menaruh kepercayaan kepadamu Man"
     return
 
-label scene_2:
+label bm_scene_2:
     stop music
+    play sound "GEMURUH-CAFE-BM-S2.mp3"
     #Scene 2: Pengeboman Cafe
     scene kantin_siang_ramai with fade
     show mc sedih
@@ -116,11 +122,11 @@ label scene_2:
     hide mc
     menu:
         "Tetap lanjutkan rencana.":
-            jump b_1
+            jump bm_b_1
         "Berhenti sekarang juga.":
-            jump b_2
+            jump bm_b_2
 
-label b_1:
+label bm_b_1:
     show mc netral at left
     ar "Mereka terlihat bahagia. Tak ada yang tahu apa yang akan terjadi."
     "(Arman berhenti sejenak, matanya menyapu ruangan.)"
@@ -135,7 +141,7 @@ label b_1:
     "(Arman berhenti di sudut jalan, menoleh sebentar ke arah café yang kini berada jauh di belakangnya. Matanya melirik jam tangan.)"
     ar "Lima menit lagi. Aku harus menjauh lebih jauh. Jangan berhenti, Arman."
     "...."
-    play sound ["<silence 1>","BOM-BM-S2.mp3"]
+    play sound ["<silence .7>","BOM-BM-S2.mp3","<silence .7>","PANIK-BM-S2.mp3"]
     scene cafe_hancur with fade
     "(Bom meledak di tengah-tengah café)"
     "(Arman berhenti seketika, tubuhnya kaku.)"
@@ -144,7 +150,11 @@ label b_1:
     "(Dia mencoba menarik napas dalam, tapi dadanya terasa sesak.)"
     "Orang-orang di sekitar:" "\"Ada bom!\".... \"Panggil polisi!\".... \"Ya Tuhan, café itu hancur!\"...."
     ar "Ini semua untuk tujuan besar... ini semua demi perubahan. Tapi kenapa suara ini di kepalaku terus berteriak… salah?"
+    stop music
+    stop sound
+    jump bm_scene_3 
 
+label bm_scene_3:
     #Scene 3: Esok hari
     scene ruang_tamu_arman with fade
     play music "bm-s3.mp3"
@@ -162,9 +172,10 @@ label b_1:
     "(Dia berdiri dengan panik, menghantam dinding dengan tangannya. Napasnya semakin cepat, tubuhnya gemetar hebat.)"
     show mc sedih
     ar "Tujuan besar? Perjuangan suci? Semua itu hanya omong kosong. Aku... aku membunuh temanku sendiri."
-    return
+    scene black
+    jump bt_scene_1
 
-label b_2:
+label bm_b_2:
     show mc sedih at left
     "(Arman mundur selangkah, napasnya semakin berat. Scene fokus pada wajahnya, penuh dengan konflik batin.)"
     ar "Pelan-pelan..."
@@ -174,4 +185,147 @@ label b_2:
     ar "Aku nggak bisa. Aku nggak peduli apa yang Pak Rizal pikirkan. Aku nggak peduli apa yang terjadi selanjutnya. Aku nggak mau jadi pembunuh."
     show mc sedih at left   
     ar "Bagaimana ini? Apa Pak Rizal akan mengejarku? Apakah aku akan aman? Apa aku akan hidup setelah ini?"
+    scene black
     return
+
+#DISCOVER REBELION
+label bt_scene_1:
+    "(Pada malam itu, Arman pergi ke atap markas untuk bergumam)"
+    play music "BT-S1.mp3"
+    scene atap_markas with fade
+    show mc sedih at right
+    ar "...Kenapa semua ini terasa salah? Apa aku memang di tempat yang benar?"
+    play sound "LANGKAH KAKI-BIRU TUA-SCENE 1.mp3"
+    "(Arman tersus bergumam dengan tatapan yang kosong mengarah ke pemandangan kota)"
+    stop sound
+    show hana senyum at left
+    ha "Arman, kamu terlihat gelisah. Apa yang sedang kamu pikirkan?"
+    show mc kaget at right
+    ar "Hana?! Aku... tidak, aku hanya—"
+    show hana sedih at left    
+    ha "Arman, aku tahu kamu merasa ada yang salah dengan semua ini. Aku juga pernah ada di posisimu."
+    hide hana
+    hide mc
+    menu:
+        "Apa Maksudmu?":
+            jump bt_a
+        "Aku tidak ingin membahas ini.":
+            jump bt_b
+
+label bt_a:
+    show hana sedih at left
+    show mc kaget at right
+    ha "Dulu, aku juga percaya dengan apa yang Rizal katakan. Dia membuat semuanya terdengar seperti jalan keluar, misi mulia yang membuat kita menjadi pahlawan. Tapi kenyataannya..."
+    ha "...semua itu hanyalah kebohongan. Dia hanya memanipulasi kita untuk melakukan hal-hal yang kita tahu salah, Arman."
+    show mc sedih at right
+    ar "Tapi... aku merasa tidak punya pilihan lain. Semua orang di sini sudah seperti keluarga."
+    show hana marah at left
+    ha "Keluarga?! Keluarga macam apa yang mengorbankan kita demi tujuan egois mereka? Arman, mereka tidak peduli padamu. Yang mereka pedulikan hanya 'misi' itu."
+    ar "Jadi… apa yang harus aku lakukan?"
+    show hana senyum at left
+    ha "Bergabunglah dengan kami, para Rebellion. Kami merencanakan sebuah pelarian. Ini satu-satunya cara untuk menghentikan semua ini tanpa menjadi monster seperti mereka."
+    show mc kaget at right
+    ar "...Hah? Pelarian??? Apakah tidak terlalu berbahaya… bagaimana bila Rizal tau apa yang kalian rencanakan?"
+    show hana marah at left
+    ha "Coba kamu pikirkan, apakah lebih berbahaya mencoba kabur atau tinggal di sini dan menjadi alat mereka? Aku tahu kamu tahu ini benar, Arman. Jangan menunggu sampai mereka benar-benar menghancurkanmu." 
+    show mc netral at right
+    ar "Baiklah... Aku akan ikut. Apa yang harus kita lakukan?"
+    show hana senyum at left
+    ha "Baik, kalau begitu ikut aku sekarang!"
+    jump bt_scene_2
+
+
+label bt_b:
+    show hana senyum at left
+    show mc marah at right
+    ha "Aku mengerti Arman, sekarang pasti batinmu sedang berdebat… aku akan membiarkanmu untuk berpikir. Aku akan ada di bawah."
+    show mc netral at right
+    ar "Terima kasih, Hana."
+    "(Arman mengalami perdebatan batin yang hebat dengan diri sendiri)"
+    "Apa yang harus kulakukan?" 
+    hide hana
+    hide mc
+    menu :
+        "Ikut rebellion dan kabur dari Rizal":
+            jump bt_b_1
+        "Tetap disini dan ikut Rizal":
+            jump bt_b_2
+
+label bt_b_1:
+    show mc marah at right
+    ar "Ini semua salah, aku tidak ingin menjadi bagian dari kelompok teroris ini lebih lama lagi. Aku harus segera menemui Hana."
+    "(Arman turun ke bawah dan bertemu kembali dengan Hana)"
+    show hana senyum at left
+    show mc netral at right
+    ar "Hana, ada sesuatu yang harus kukatakan. Aku tidak tahan lagi berada di sini. Aku ingin keluar dari kelompok terorisme ini. Ini semua salah, aku tidak ingin hidupku menjadi rusak karena mereka."
+    ha "Baik Arman, kalau begitu ayo bergabung dalam rencana kabur bersamaku dan kelompok rebellion. Kita harus bisa melepas diri kita dari Rizal."
+    ar "Baik, apa yang harus kita lakukan?"
+    show hana kaget at left
+    ha "Ikut aku Arman!"
+    jump bt_scene_2
+   
+label bt_b_2:
+    show mc marah
+    ar "Lupakan saja deh, aku akan sepenuhnya mengikuti Rizal" 
+    return
+
+label bt_scene_2:
+    #Scene 2: Markas Teroris, Ruang Rahasia (Larut Malam) BGM: BT-S2.mp3
+    scene ruang_rapat_rahasia with fade
+    play music "BT-S2.mp3"
+    "(Hana membawa Arman ke ruang rahasia di dalam markas. Di sana, beberapa anggota rebellion sudah berkumpul, termasuk Arief, pemimpin mereka. Mereka berdiri di sekitar meja dengan peta besar, membahas rencana. Ketegangan terasa di udara.)"
+    play sound "PINTU TERBUKA PELAN-BIRU TUA-SCENE 2.mp3"
+    "(Hana membuka pintu markas)"
+    show arief nembak at left
+    ai "Hana, kau terlambat. Apa yang terjadi?"
+    show hana nembak at right
+    ha "Aku membawa seseorang."
+    hide hana
+    show hana nembak 
+    show mc netral at right
+    "(Arman melangkah masuk, terlihat gugup. Semua mata tertuju padanya.)"
+    hide hana
+    show dodi kaget
+    di "Hah? Dia?! Hana, kau tahu ini ruang rahasia, kan? Kenapa kau malah membawa... dia? Ini sama saja seperti membawa Rizal sendiri ke sini!"
+    "(Dion mulai berjalan ke belakang, berpura-pura panik, dan menutupi wajahnya dengan tangan.)"
+    di "Tunggu, tunggu. Apa kita punya kode rahasia baru? Apa aku harus menyamar lagi? Cepat, aku butuh kumis palsu!"
+    "(Beberapa anggota rebellion menahan tawa, tetapi Arief tidak menunjukkan ekspresi.)"
+    show arief marah
+    ai "Cukup, Dion. Duduk."
+    show dodi netral
+    "(Dion langsung duduk dengan ekspresi cemberut.)"
+    di "Siapa dia, Hana?"
+    hide arief 
+    show hana nembak at left
+    ha "Ini Arman. Dia ingin ikut dengan kita untuk kabur dari sini. Aku percaya dengannya."
+    show mc kaget
+    ar "Aku tahu kalian ragu. Aku juga pernah percaya pada Rizal, tapi sekarang aku sadar karena Hana. Aku hanya ingin bebas. Kalau kalian mau mengujiku, aku siap."
+    di "Uji dia? Suruh dia bikin kopi dulu. Kalau kopinya enak, mungkin dia memang bisa dipercaya."
+    hide hana
+    show arief nembak at left
+    ai "Baik kalau begitu, jika dia berbohong itu akan jadi tanggung jawabku."
+    show dodi kaget
+    di "Tanggung jawab? Bagus. Kalau ada apa-apa, aku tinggal lari duluan. Kau tahu aku pelari tercepat di sini."
+    hide dodi
+    show hana marah
+    ha "Dion, tutup mulutmu."
+    ai "Arman, aku harap kau tahu apa yang kau lakukan. Jika kau bergabung dengan kami, ini bukan hanya tentang dirimu lagi. Nyawa semua orang di sini akan bergantung pada keputusanmu."
+    show mc netral
+    ar "Aku mengerti. Aku siap mengambil risiko itu."
+    "(Arief mengangguk, lalu mengarahkan perhatian ke peta di meja.)"
+    ai "Besok malam, kita bergerak. Rizal akan mengumpulkan semua orang untuk briefing besar. Itu waktu terbaik untuk menyelinap keluar. Arman, kau bertanggung jawab memastikan pintu sisi barat tidak terkunci. Itu jalan kita menuju kebebasan."
+    hide hana
+    show dodi kaget
+    di "Pintu barat? Jadi, kau penjaga pintu sekarang? Pastikan kau tidak kehilangan kunci. Kalau tidak, aku tidak mau tidur di hutan selamanya."
+    "(Semua anggota menahan tawa. Hana menepuk kepala Dion dengan pelan.)"
+    show hana marah at left
+    hide arief
+    ha "Dion, fokus. Kita tidak punya banyak waktu untuk bercanda."
+    show dodi netral
+    di "Baik, baik. Aku serius sekarang. Tapi kalau ada nyamuk di hutan, aku akan menyerah duluan."
+    show mc netral
+    ar "Eumm aku ingin bertanya, bagaimana kalau misalnya Rizal tahu?"
+    show arief nembak at left
+    hide hana
+    ai "Risiko itu selalu ada. Tapi lebih baik kita mencoba kabur daripada menjadi bagian dari kejahatan ini."
+
